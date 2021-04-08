@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Clothes.View.AddStuffView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Clothes.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock FontSize="30" Margin="20" HorizontalAlignment="Center" Text="Добавление новой вещи"></TextBlock>
+        <StackPanel Margin="40">
+            <TextBox
+                MaxHeight="60"
+                Margin="15"
+                Text="{Binding SelectedStuff.Name}"
+                      materialDesign:HintAssist.Hint="Название вещи"
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                      VerticalAlignment="Center" />
+            <ComboBox
+                MaxHeight="60"
+                Margin="15"
+                Text="{Binding SelectedStuff.Temperature}"
+                materialDesign:HintAssist.Hint="Средняя температура"
+                      ItemsSource="{Binding ListOfDegree}"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <ComboBox
+                Margin="15"
+                MaxHeight="60"
+                    materialDesign:HintAssist.Hint="Тип одежды"  Text="{Binding SelectedStuff.Type, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem>
+                    Верхняя одежда
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Штаны
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Обувь
+                </ComboBoxItem>
+            </ComboBox>
+            <Button Margin="15" MaxWidth="140" HorizontalAlignment="Left" Content="Добавить фото" Command="{Binding AddPhoto, UpdateSourceTrigger=PropertyChanged}"></Button>
+            <Button Margin="10" MaxWidth="150" Content="Добавить" Command="{Binding AddCommand}"></Button>
+        </StackPanel>   
+        <StackPanel Grid.Column="1">
+            <Image MaxHeight="250" Source="{Binding SelectedStuff.FilePath}"></Image>
+            <TextBlock HorizontalAlignment="Stretch" FontSize="24" Margin="5" Text="{Binding    SelectedStuff.Name}"></TextBlock>
+            <TextBlock HorizontalAlignment="Stretch" FontSize="24" Margin="5" Text="{Binding SelectedStuff.Type}"></TextBlock>
+            <TextBlock HorizontalAlignment="Stretch" FontSize="24" Margin="5" Text="{Binding SelectedStuff.Temperature}"></TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>
